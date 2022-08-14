@@ -2,7 +2,7 @@
     package="com.example.third_exam">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="third_exam"
+        android:label="Third Exam"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
