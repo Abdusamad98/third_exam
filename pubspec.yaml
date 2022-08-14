@@ -23,9 +23,12 @@ dependencies:
   easy_localization: ^3.0.1
   image_picker: ^0.8.5+3
   modal_bottom_sheet: ^2.1.0
+  cached_network_image: ^3.2.1
+  shimmer: ^2.0.0
   intl: ^0.17.0
   location: ^4.4.0
   json_serializable: ^6.3.1
+
 
 dev_dependencies:
   flutter_test:

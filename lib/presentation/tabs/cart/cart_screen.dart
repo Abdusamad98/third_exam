@@ -3,6 +3,7 @@ import 'package:third_exam/data/local_data/db/cached_category.dart';
 import 'package:third_exam/data/my_repository.dart';
 import 'package:third_exam/utils/colors.dart';
 import 'package:third_exam/utils/styles.dart';
+import 'package:third_exam/utils/utility_functions.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key, required this.myRepository}) : super(key: key);
@@ -18,7 +19,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cart"),
+        title: const Text("Savatcha"),
         actions: [
           TextButton(
             onPressed: () async {
@@ -27,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
                   builder: (context) {
                     return AlertDialog(
                       title: const Text(
-                          "Are you sure you want to delete all products in cart"),
+                          "Rostdan ham savatchadi barcha mahsulotlarni o'chirmoqchimisiz?"),
                       actions: [
                         TextButton(
                           child: const Text('Yes'),
@@ -48,7 +49,7 @@ class _CartScreenState extends State<CartScreen> {
                   });
             },
             child: Text(
-              "Clear all",
+              "Tozalash",
               style: MyTextStyle.interSemiBold600.copyWith(
                 color: MyColors.white,
               ),
@@ -72,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                 return ListTile(
                   title: Text(cachedItem.name),
                   subtitle: Text(
-                    "Count:  ${cachedItem.count}",
+                    "Soni:  ${cachedItem.count}",
                     style:
                         MyTextStyle.interMedium500.copyWith(color: Colors.red),
                   ),
@@ -91,7 +92,13 @@ class _CartScreenState extends State<CartScreen> {
                         const SizedBox(width: 5),
                         IconButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () async {
+                            await widget.myRepository.deleteCachedProductById(
+                              id: cachedItem.id!,
+                            );
+                            UtilityFunctions.getMyToast(message: "O'chirildi!");
+                            setState(() {});
+                          },
                           icon: const Icon(
                             Icons.delete,
                             color: Colors.red,

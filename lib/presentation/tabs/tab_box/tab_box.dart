@@ -41,7 +41,7 @@ class _TabBoxState extends State<TabBox> {
       // ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.grey,
+        backgroundColor: Theme.of(context).primaryColor,
         iconSize: 24,
         onTap: (index) {
           setState(() {
@@ -52,8 +52,8 @@ class _TabBoxState extends State<TabBox> {
         selectedItemColor: Colors.white,
         selectedLabelStyle: const TextStyle(color: Colors.green),
         items: [
-          getItem(icon: Icons.category_rounded, labelText: "Categories"),
-          getItem(icon: Icons.shopping_basket_rounded, labelText: "Cart"),
+          getItem(icon: Icons.category_rounded, labelText: "Kategoriya"),
+          getItem(icon: Icons.shopping_basket_rounded, labelText: "Savat"),
         ],
       ),
     );

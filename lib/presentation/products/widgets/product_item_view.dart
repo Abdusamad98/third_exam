@@ -78,7 +78,7 @@ class ProductsItemView extends StatelessWidget {
               backgroundColor: MyColors.black,
             ),
             child: Text(
-              "Add To Cart",
+              "Savatga qo'shish",
               style: MyTextStyle.interMedium500.copyWith(
                 color: MyColors.white,
               ),

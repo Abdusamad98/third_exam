@@ -22,7 +22,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Products"),
+        title: const Text("Matsumoto"),
       ),
       body: FutureBuilder<List<ProductItem>>(
         future:
@@ -49,27 +49,41 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     int count = 0;
                     List<CachedProduct> savedProducts =
                         await widget.myRepository.getAllCachedProducts();
-                    if (savedProducts
-                        .map((e) => e.productId == item.id)
-                        .isNotEmpty) {
-                      for (var element in savedProducts) {
-                        if (element.productId == item.id) {
-                          count = element.count;
-                        }
+                    bool beforeSaved = false;
+                    int savedId = 0;
+                    for (var element in savedProducts) {
+                      if (element.productId == item.id) {
+                        beforeSaved = true;
+                        savedId = element.id!;
+                        count = element.count;
                       }
                     }
-                    count += 1;
-                    await widget.myRepository.insertCachedProduct(
-                      cachedProduct: CachedProduct(
-                        imageUrl: item.imageUrl,
-                        price: item.price,
-                        count: count,
-                        name: item.name,
-                        productId: item.id,
-                      ),
-                    );
+                    if (beforeSaved) {
+                      count += 1;
+                      await widget.myRepository.updateCachedProductById(
+                        id: savedId,
+                        cachedProduct: CachedProduct(
+                          imageUrl: item.imageUrl,
+                          price: item.price,
+                          count: count,
+                          name: item.name,
+                          productId: item.id,
+                        ),
+                      );
+                    } else {
+                      widget.myRepository.insertCachedProduct(
+                        cachedProduct: CachedProduct(
+                          imageUrl: item.imageUrl,
+                          price: item.price,
+                          count: 1,
+                          name: item.name,
+                          productId: item.id,
+                        ),
+                      );
+                    }
+
                     UtilityFunctions.getMyToast(
-                      message: "Product added successfully to cart!",
+                      message: "Mahsulot savatga muvaffaqqiyatli qo'shildi!",
                     );
                   },
                 );
