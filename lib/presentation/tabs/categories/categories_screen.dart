@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:third_exam/data/models/category_item.dart';
 import 'package:third_exam/data/my_repository.dart';
 import 'package:third_exam/presentation/products/products_screen.dart';
-import 'package:third_exam/presentation/tabs/categories/category_item.dart';
+import 'package:third_exam/presentation/tabs/categories/widgets/category_item.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({Key? key, required this.myRepository})
@@ -19,7 +19,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Kategoryalar"),
+        title: const Text("Kategoryalar ro'yxati"),
       ),
       body: FutureBuilder<List<CategoryItem>>(
         future: widget.myRepository.getAllCategories(),
@@ -41,8 +41,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return ProductsScreen(
+                            category: data[index],
                             myRepository: widget.myRepository,
-                            categoryId: data[index].id,
                           );
                         },
                       ),

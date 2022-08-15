@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:third_exam/data/local_data/db/cached_category.dart';
+import 'package:third_exam/data/models/category_item.dart';
 import 'package:third_exam/data/models/product_item.dart';
 import 'package:third_exam/data/my_repository.dart';
 import 'package:third_exam/presentation/products/widgets/product_item_view.dart';
 import 'package:third_exam/utils/utility_functions.dart';
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen(
-      {Key? key, required this.myRepository, required this.categoryId})
-      : super(key: key);
+  const ProductsScreen({
+    Key? key,
+    required this.myRepository,
+    required this.category,
+  }) : super(key: key);
 
   final MyRepository myRepository;
-  final int categoryId;
+  final CategoryItem category;
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -22,11 +25,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Matsumoto"),
+        title: Text(widget.category.name),
       ),
       body: FutureBuilder<List<ProductItem>>(
         future:
-            widget.myRepository.getAllCategoryProducts(id: widget.categoryId),
+            widget.myRepository.getAllCategoryProducts(id: widget.category.id),
         builder:
             (BuildContext context, AsyncSnapshot<List<ProductItem>> snapshot) {
           if (snapshot.hasError) {
