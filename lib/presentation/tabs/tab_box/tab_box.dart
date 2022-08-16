@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:third_exam/data/api/api_provider.dart';
 import 'package:third_exam/data/my_repository.dart';
+import 'package:third_exam/presentation/tabs/all_products/all_products_screen.dart';
 import 'package:third_exam/presentation/tabs/cart/cart_screen.dart';
 import 'package:third_exam/presentation/tabs/categories/categories_screen.dart';
 
@@ -24,6 +25,7 @@ class _TabBoxState extends State<TabBox> {
 
     screens = [
       CategoriesScreen(myRepository: myRepository),
+      AllProductsScreen(myRepository: myRepository,),
       CartScreen(myRepository: myRepository),
     ];
     super.initState();
@@ -53,6 +55,7 @@ class _TabBoxState extends State<TabBox> {
         selectedLabelStyle: const TextStyle(color: Colors.green),
         items: [
           getItem(icon: Icons.category_rounded, labelText: "Kategoriya"),
+          getItem(icon: Icons.square_rounded, labelText: "Mahsulotlar"),
           getItem(icon: Icons.shopping_basket_rounded, labelText: "Savat"),
         ],
       ),

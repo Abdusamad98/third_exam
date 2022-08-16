@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:third_exam/data/models/category_item.dart';
 import 'package:third_exam/data/my_repository.dart';
-import 'package:third_exam/presentation/products/products_screen.dart';
+import 'package:third_exam/presentation/category_products/category_products_screen.dart';
 import 'package:third_exam/presentation/tabs/categories/widgets/category_item.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -40,7 +40,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ProductsScreen(
+                          return CategoryProductsScreen(
                             category: data[index],
                             myRepository: widget.myRepository,
                           );

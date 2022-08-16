@@ -1,7 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
-import 'package:third_exam/data/local_data/db/cached_category.dart';
+import 'package:third_exam/data/local_data/db/cached_favourite_product.dart';
+import 'package:third_exam/data/local_data/db/cached_product.dart';
 
 class LocalDatabase {
   static final LocalDatabase getInstance = LocalDatabase._init();
@@ -32,12 +33,21 @@ class LocalDatabase {
     const idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
     const textType = "TEXT NOT NULL";
     const intType = "INTEGER DEFAULT 0";
-    const doubleType = "REAL DEFAULT 0.0";
 
     await db.execute('''
     CREATE TABLE $productsTable (
     ${ProductFields.id} $idType,
     ${ProductFields.count} $intType,
+    ${ProductFields.productId} $intType,
+    ${ProductFields.imageUrl} $textType,
+    ${ProductFields.name} $textType,
+    ${ProductFields.price} $intType
+    )
+    ''');
+
+    await db.execute('''
+    CREATE TABLE $favouriteProductsTable (
+    ${ProductFields.id} $idType,
     ${ProductFields.productId} $intType,
     ${ProductFields.imageUrl} $textType,
     ${ProductFields.name} $textType,
@@ -118,5 +128,41 @@ class LocalDatabase {
   Future close() async {
     final db = await getInstance.database;
     db.close();
+  }
+
+  //-------------------Cached Favourite Products Table-------------------
+
+  static Future<CachedFavouriteProduct> insertFavouriteProduct(
+      CachedFavouriteProduct cachedFavouriteProduct) async {
+    final db = await getInstance.database;
+    final id = await db.insert(
+        favouriteProductsTable, cachedFavouriteProduct.toJson());
+    return cachedFavouriteProduct.copyWith(id: id);
+  }
+
+  static Future<List<CachedFavouriteProduct>> getAllFavouriteProducts() async {
+    final db = await getInstance.database;
+    const orderBy = "${ProductFields.name} ASC";
+    final result = await db.query(
+      favouriteProductsTable,
+      orderBy: orderBy,
+    );
+    return result.map((json) => CachedFavouriteProduct.fromJson(json)).toList();
+  }
+
+  static Future<int> deleteAllFavouriteProducts() async {
+    final db = await getInstance.database;
+    return await db.delete(favouriteProductsTable);
+  }
+
+  static Future<int> deleteFavouriteProductById(int id) async {
+    final db = await getInstance.database;
+    var t = await db.delete(favouriteProductsTable,
+        where: "${ProductFields.id}=?", whereArgs: [id]);
+    if (t > 0) {
+      return t;
+    } else {
+      return -1;
+    }
   }
 }

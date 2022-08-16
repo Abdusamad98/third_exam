@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:third_exam/data/local_data/db/cached_category.dart';
+import 'package:third_exam/data/local_data/db/cached_product.dart';
 import 'package:third_exam/data/my_repository.dart';
 import 'package:third_exam/presentation/tabs/cart/widgets/cart_item_view.dart';
 import 'package:third_exam/utils/colors.dart';
@@ -68,9 +68,9 @@ class _CartScreenState extends State<CartScreen> {
             );
           } else if (snapshot.hasData) {
             List<CachedProduct> data = snapshot.data!;
-            var totalPrice = data
-                .map((e) => (e.price * e.count))
-                .reduce((value, element) => value + element);
+            var totalPrice = data.isNotEmpty?data.map((e) => (e.price * e.count)).reduce(
+                  (value, element) => value + element,
+                ):0;
             return Column(
               children: [
                 Expanded(

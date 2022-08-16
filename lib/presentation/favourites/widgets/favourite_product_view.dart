@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:third_exam/data/models/product_item.dart';
+import 'package:third_exam/data/local_data/db/cached_favourite_product.dart';
 import 'package:third_exam/utils/colors.dart';
 import 'package:third_exam/utils/styles.dart';
 
-class ProductsItemView extends StatelessWidget {
-  const ProductsItemView({Key? key, required this.item, required this.onTap})
-      : super(key: key);
+class FavouriteProductView extends StatelessWidget {
+  const FavouriteProductView({
+    Key? key,
+    required this.item,
+    required this.onTap,
+  }) : super(key: key);
 
-  final ProductItem item;
+  final CachedFavouriteProduct item;
   final VoidCallback onTap;
 
   @override
@@ -57,20 +60,17 @@ class ProductsItemView extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "USD ${item.price}",
-                style: MyTextStyle.interSemiBold600.copyWith(
-                  fontSize: 18,
-                  color: MyColors.C_4047C1,
-                ),
-              ),
-              const SizedBox(),
-            ],
+          Text(
+            "USD ${item.price}",
+            style: MyTextStyle.interSemiBold600.copyWith(
+              fontSize: 18,
+              color: MyColors.C_4047C1,
+            ),
+          ),
+          const SizedBox(
+            height: 5,
           ),
           TextButton(
             onPressed: onTap,
