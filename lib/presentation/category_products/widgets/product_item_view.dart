@@ -107,7 +107,7 @@ class ProductsItemView extends StatelessWidget {
               ),
               child: isFavourite
                   ? const Icon(
-                      Icons.favorite_outlined,
+                          Icons.favorite_outlined,
                       color: Colors.red,
                     )
                   : const Icon(

@@ -16,7 +16,7 @@ class LocalDatabase {
     if (_database != null) {
       return _database!;
     } else {
-      _database = await _initDB("todos.db");
+      _database = await _initDB("shop_app.db");
       return _database!;
     }
   }
@@ -115,7 +115,20 @@ class LocalDatabase {
       ProductFields.productId: cachedProduct.productId,
       ProductFields.imageUrl: cachedProduct.imageUrl,
     };
+    final db = await getInstance.database;
+    return db.update(
+      productsTable,
+      row,
+      where: '${ProductFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
 
+  static Future<int> updateCachedProductCount(
+      {required int id, required int count}) async {
+    Map<String, dynamic> row = {
+      ProductFields.count: count,
+    };
     final db = await getInstance.database;
     return db.update(
       productsTable,

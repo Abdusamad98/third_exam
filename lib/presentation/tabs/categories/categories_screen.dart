@@ -3,6 +3,7 @@ import 'package:third_exam/data/models/category_item.dart';
 import 'package:third_exam/data/my_repository.dart';
 import 'package:third_exam/presentation/category_products/category_products_screen.dart';
 import 'package:third_exam/presentation/tabs/categories/widgets/category_item.dart';
+import 'package:third_exam/utils/constants.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({Key? key, required this.myRepository})
@@ -36,17 +37,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 return CategoryItemView(
                   categoryItem: data[index],
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return CategoryProductsScreen(
-                            category: data[index],
-                            myRepository: widget.myRepository,
-                          );
-                        },
-                      ),
-                    );
+                    Navigator.pushNamed(
+                        context, categoriesProductsRoute, arguments: [widget
+                        .myRepository, data[index],
+                    ]);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return CategoryProductsScreen(
+                    //         category:,
+                    //         myRepository: widget.myRepository,
+                    //       );
+                    //     },
+                    //   ),
+                    // );
                   },
                 );
               }),

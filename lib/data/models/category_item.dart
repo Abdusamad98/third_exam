@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'category_item.g.dart';
 
-
 @JsonSerializable()
 class CategoryItem {
   @JsonKey(defaultValue: 0, name: 'id')

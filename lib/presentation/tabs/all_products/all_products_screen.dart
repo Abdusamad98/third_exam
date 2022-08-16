@@ -4,7 +4,7 @@ import 'package:third_exam/data/local_data/db/cached_product.dart';
 import 'package:third_exam/data/models/product_item.dart';
 import 'package:third_exam/data/my_repository.dart';
 import 'package:third_exam/presentation/category_products/widgets/product_item_view.dart';
-import 'package:third_exam/presentation/favourites/favourites_screen.dart';
+import 'package:third_exam/utils/constants.dart';
 import 'package:third_exam/utils/utility_functions.dart';
 
 class AllProductsScreen extends StatefulWidget {
@@ -30,14 +30,16 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FavouritesScreen(
-                      myRepository: widget.myRepository,
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, favouritesRoute,
+                    arguments: widget.myRepository);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => FavouritesScreen(
+                //       myRepository: widget.myRepository,
+                //     ),
+                //   ),
+                // );
               },
               icon: const Icon(Icons.favorite))
         ],
@@ -96,15 +98,9 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
     }
     if (beforeSaved) {
       count += 1;
-      await widget.myRepository.updateCachedProductById(
+      await widget.myRepository.updateCachedProductCount(
         id: savedId,
-        cachedProduct: CachedProduct(
-          imageUrl: item.imageUrl,
-          price: item.price,
-          count: count,
-          name: item.name,
-          productId: item.id,
-        ),
+        count: count,
       );
     } else {
       widget.myRepository.insertCachedProduct(
@@ -127,20 +123,20 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
       widget.myRepository.deleteFavouriteProductById(
         id: favourites.where((e) => e.productId == item.id).toList()[0].id!,
       );
-      setState(() {});
     } else {
       widget.myRepository.insertFavouriteProduct(
         favouriteProduct: CachedFavouriteProduct(
-            imageUrl: item.imageUrl,
-            price: item.price,
-            name: item.name,
-            productId: item.id),
+          imageUrl: item.imageUrl,
+          price: item.price,
+          name: item.name,
+          productId: item.id,
+        ),
       );
       UtilityFunctions.getMyToast(
         message: "Added to favourites!",
       );
-      setState(() {});
     }
+    setState(() {});
   }
 
   bool isFavouriteProduct(ProductItem item) =>

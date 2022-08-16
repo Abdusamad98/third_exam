@@ -41,6 +41,12 @@ class MyRepository {
         id: id, cachedProduct: cachedProduct);
   }
 
+  Future<int> updateCachedProductCount(
+      {required int id, required int count }) async {
+    return await LocalDatabase.updateCachedProductCount(
+        id: id, count: count);
+  }
+
   Future<int> clearAllCachedProducts() async {
     return await LocalDatabase.deleteAllCachedProducts();
   }

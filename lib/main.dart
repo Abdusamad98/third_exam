@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:third_exam/presentation/router.dart';
 import 'package:third_exam/presentation/tabs/tab_box/tab_box.dart';
+import 'package:third_exam/utils/constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +19,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const TabBox(),
+      initialRoute: tabsRoute,
+      onGenerateRoute: MyRouter.generateRoute,
     );
   }
 }
-
 
 //flutter packages pub run build_runner build --delete-conflicting-outputs

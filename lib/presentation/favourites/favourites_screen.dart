@@ -20,7 +20,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sevimlilar"),
+        title: const Text("Sevimlilar"),
       ),
       body: FutureBuilder<List<CachedFavouriteProduct>>(
         future: widget.myRepository.getAllFavouriteProducts(),
